@@ -14,7 +14,6 @@ layout: default
 ## 🔥 Why MorpheApp Is the Ultimate ReVanced Alternative?
 
 <div class="feature-grid">
-  <!-- feature cards unchanged -->
   <div class="feature-card">
     <div class="feature-icon">🚀</div>
     <h3>No Root Required</h3>
@@ -66,8 +65,8 @@ layout: default
     <p>Pop the video into a floating window and keep using other apps. Multitasking made easy.</p>
   </div>
   <div class="feature-card">
-    <div class="feature-icon">🔧</div>
-    <h3>50+ Pre‑Tuned Settings</h3>
+    <div class="feature-icon">⚙️</div>
+    <h3>Around Essential 70+ Settings</h3>
     <p>Import our ready‑made settings file and get the perfect configuration in one tap. See guide below.</p>
   </div>
   <div class="feature-card">
@@ -101,11 +100,9 @@ layout: default
     <a href="https://github.com/MorpheApp/MicroG-RE/releases/latest/download/MicroG-RE.apk" class="btn-download">⬇️ Latest MicroG</a>
     <a href="https://github.com/MorpheApp/MicroG-RE/releases" class="btn-outline">📂 All Versions</a>
   </div>
-  <div class="feature-card">
-    <div class="feature-icon">🔧</div>
-    <h3>70+ Pre‑Tuned Settings</h3>
-    <p>Import our ready‑made settings file and get the perfect configuration in one tap. See guide below.</p>
-</div>
+  <div class="download-card">
+    <h3>⚙️ Settings File (70+ Tweaks)</h3>
+    <p>Pre‑configured for the best experience. Import and relax.</p>
     <a href="https://raw.githubusercontent.com/BackstoreIO/MorpheApp-Artifacts/main/My.50%2B.YouTube_Morphe_Settings_2026-04-22.txt" class="btn-download">⬇️ Download Settings</a>
     <small>⬆️ Direct settings file link. Always the latest.</small>
   </div>
@@ -137,9 +134,9 @@ layout: default
 
 ---
 
-### ⚙️ How to Import Our 50+ Settings (Get the Best Setup Instantly)
+### ⚙️ How to Import Our Around Essential 70+ Settings
 
-After installing, our settings file will unlock everything automatically. Here’s exactly where to apply it inside the app:
+After installing, our settings file contains a set of around essential 70+ refinements. Here’s exactly where to apply it inside the app:
 
 1. **Download the settings file** from the button above.
 2. Open **MorpheApp** (YouTube).
@@ -150,7 +147,7 @@ After installing, our settings file will unlock everything automatically. Here�
 6. Tap **Import Settings** and choose the downloaded settings file (the `.txt` file).
 7. Tap **Save** and restart the app when prompted.
 
-**What’s included (20 key tweaks + 30 more):**
+**What’s included (around essential 70+ tweaks):**
 - **SponsorBlock** – all segments auto‑skipped, compact button, voting on
 - **Swipe brightness** – left edge, press‑to‑engage, 25% sensitivity
 - **Swipe volume** – right edge, same press‑to‑engage
@@ -169,7 +166,7 @@ After installing, our settings file will unlock everything automatically. Here�
 - **Disable auto‑hide navigation bar**
 - **Auto captions disabled**
 - **No Shorts resume, no popup panels**
-… and **30+ additional refinements** (seekbar opacity, branding icon, search button, etc.)
+… and **50+ additional refinements** (seekbar opacity, branding icon, search button, etc.)
 
 ---
 
