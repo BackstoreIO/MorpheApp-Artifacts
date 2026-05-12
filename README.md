@@ -1,8 +1,8 @@
 # MorpheApp Patched APKs – The Safer ReVanced Alternative
 
-[![GitHub release (latest by date)](https://img.shields.io/github/v/release/rsbrow-hub/MorpheApp-Artifacts?style=flat-square)](https://github.com/rsbrow-hub/MorpheApp-Artifacts/releases/latest)
+[![GitHub release (latest by date)](https://img.shields.io/github/v/release/BackstoreIO/MorpheApp-Artifacts?style=flat-square)](https://github.com/BackstoreIO/MorpheApp-Artifacts/releases/latest)
 [![VirusTotal Scanned](https://img.shields.io/badge/VirusTotal-Scanned-brightgreen?style=flat-square)](https://www.virustotal.com)
-[![Website](https://img.shields.io/badge/Website-Live-blue?style=flat-square)](https://rsbrow-hub.github.io/MorpheApp-Artifacts/)
+[![Website](https://img.shields.io/badge/Website-Live-blue?style=flat-square)](https://backstoreio.github.io/MorpheApp-Artifacts/)
 
 > Ready-to-install, pre-patched APKs of **MorpheApp** (YouTube &amp; YT Music).  
 > No root, no patching, no manager — just download, install, and enjoy ad‑free YouTube.
@@ -24,12 +24,12 @@
 
 ## 📥 Download & Install
 
-1. Visit our **[Website](https://rsbrow-hub.github.io/MorpheApp-Artifacts/)** or the **[Releases page](../../releases)**.
+1. Visit our **[Website](https://backstoreio.github.io/MorpheApp-Artifacts/)** or the **[Releases page](../../releases)**.
 2. Download the latest `.apk` file.
 3. Enable **“Install from unknown sources”**.
 4. Install and sign in using **MicroG** (if not rooted).
 
-🔧 **Bonus:** After installing, import our [pre‑tuned settings file](https://raw.githubusercontent.com/rsbrow-hub/MorpheApp-Artifacts/main/My.50%2B.YouTube_Morphe_Settings_2026-04-22.txt) for the best experience (full guide on website).
+🔧 **Bonus:** After installing, import our [pre‑tuned settings file](https://raw.githubusercontent.com/BackstoreIO/MorpheApp-Artifacts/main/My.50%2B.YouTube_Morphe_Settings_2026-04-22.txt) for the best experience (full guide on website).
 
 ---
 
