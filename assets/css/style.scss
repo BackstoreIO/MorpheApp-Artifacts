@@ -407,3 +407,33 @@ small {
 [data-aos] {
   transition: opacity 0.6s ease, transform 0.6s ease;
 }
+
+/* ---------- Back to Top Button ---------- */
+#back-to-top {
+  display: none;
+  position: fixed;
+  bottom: 100px;
+  right: 25px;
+  z-index: 199;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text);
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  transition: background 0.3s, transform 0.2s, color 0.2s;
+  display: none; /* initially hidden by JS, but JS will override */
+}
+#back-to-top:hover {
+  background: var(--accent);
+  color: #fff;
+  transform: translateY(-3px);
+}
+@media (max-width: 768px) {
+  #back-to-top {
+    bottom: 85px; /* don't overlap mobile nav */
+  }
+}
