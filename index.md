@@ -101,9 +101,11 @@ layout: default
     <a href="https://github.com/MorpheApp/MicroG-RE/releases/latest/download/MicroG-RE.apk" class="btn-download">⬇️ Latest MicroG</a>
     <a href="https://github.com/MorpheApp/MicroG-RE/releases" class="btn-outline">📂 All Versions</a>
   </div>
-  <div class="download-card">
-    <h3>⚙️ Settings File (50+ Tweaks)</h3>
-    <p>Pre‑configured for the best experience. Import and relax.</p>
+  <div class="feature-card">
+    <div class="feature-icon">🔧</div>
+    <h3>70+ Pre‑Tuned Settings</h3>
+    <p>Import our ready‑made settings file and get the perfect configuration in one tap. See guide below.</p>
+</div>
     <a href="https://raw.githubusercontent.com/BackstoreIO/MorpheApp-Artifacts/main/My.50%2B.YouTube_Morphe_Settings_2026-04-22.txt" class="btn-download">⬇️ Download Settings</a>
     <small>⬆️ Direct settings file link. Always the latest.</small>
   </div>
