@@ -190,3 +190,62 @@ A huge thank you to the MorpheApp developers for making a safer, ad‑free YouTu
 ---
 
 > ⚠️ **Disclaimer:** This project is not affiliated with YouTube or Google. The APKs are provided for educational purposes only. Use at your own risk.
+<script>
+  // AOS init
+  AOS.init({
+    duration: 800,
+    once: true
+  });
+
+  // Typewriter effect on the project name
+  (function() {
+    const el = document.querySelector('.project-name');
+    if (!el) return;
+    const originalText = el.textContent.trim();
+    el.textContent = '';
+    el.id = 'typewriter';
+    let i = 0;
+    function type() {
+      if (i < originalText.length) {
+        el.textContent += originalText.charAt(i);
+        i++;
+        setTimeout(type, 100);
+      } else {
+        el.style.borderRight = 'none';
+      }
+    }
+    type();
+  })();
+
+  // Dark/Light Toggle
+  (function() {
+    const header = document.querySelector('.page-header');
+    if (!header) return;
+    const toggle = document.createElement('button');
+    toggle.className = 'theme-toggle';
+    toggle.innerHTML = document.body.classList.contains('light-mode') ? '☀️' : '🌙';
+    toggle.setAttribute('aria-label', 'Toggle theme');
+    header.appendChild(toggle);
+
+    toggle.addEventListener('click', () => {
+      document.body.classList.toggle('light-mode');
+      const isLight = document.body.classList.contains('light-mode');
+      toggle.innerHTML = isLight ? '☀️' : '🌙';
+      localStorage.setItem('theme', isLight ? 'light' : 'dark');
+    });
+  })();
+
+  // Add data-aos attributes to feature cards and download cards for scroll animation
+  document.querySelectorAll('.feature-card, .download-card').forEach((card, idx) => {
+    card.setAttribute('data-aos', 'fade-up');
+    card.setAttribute('data-aos-delay', (idx % 4) * 100);
+  });
+</script>
+
+<!-- Mobile floating nav -->
+<nav class="mobile-nav">
+  <a href="#downloads" title="Downloads">📥</a>
+  <a href="#quick-links" title="Links">🔗</a>
+  <a href="#how-to-install" title="Guide">📖</a>
+  <a href="#credits" title="Credits">🙏</a>
+</nav>
