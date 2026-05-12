@@ -18,6 +18,28 @@
   --red: #f85149;
   --radius: 14px;
   --shadow: 0 8px 30px rgba(0,0,0,0.5);
+  --header-bg: rgba(13, 17, 23, 0.85);
+  --header-border: #30363d;
+}
+
+/* Light mode overrides */
+body.light-mode {
+  --bg: #f6f8fa;
+  --surface: #ffffff;
+  --surface-hover: #f0f2f5;
+  --border: #d0d7de;
+  --text: #1f2328;
+  --text-muted: #656d76;
+  --accent: #0969da;
+  --accent-hover: #0550ae;
+  --accent-glow: rgba(9,105,218,0.3);
+  --green: #1a7f37;
+  --green-glow: rgba(26,127,55,0.3);
+  --yellow: #9a6700;
+  --red: #cf222e;
+  --shadow: 0 4px 15px rgba(0,0,0,0.08);
+  --header-bg: rgba(246, 248, 250, 0.9);
+  --header-border: #d0d7de;
 }
 
 body {
@@ -26,36 +48,23 @@ body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   margin: 0;
   padding: 0;
+  transition: background-color 0.3s, color 0.3s;
 }
 
-/* ---------- Move content away from edges ---------- */
-.main-content {
-  padding-left: 2rem;
-  padding-right: 2rem;
-}
-@media (min-width: 768px) {
-  .main-content {
-    padding-left: 3rem;
-    padding-right: 3rem;
-  }
-}
-@media (min-width: 1024px) {
-  .main-content {
-    padding-left: 4rem;
-    padding-right: 4rem;
-  }
-}
-
-/* ---------- Override Cayman header ---------- */
+/* ---------- Sticky Header with blur ---------- */
 .page-header {
-  background: linear-gradient(135deg, #0d1117 0%, #161b22 100%);
-  border-bottom: 1px solid var(--border);
-  padding: 3rem 1rem 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--header-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--header-border);
+  padding: 1.5rem 1rem;
   text-align: center;
-  position: relative;
-  overflow: hidden;
+  transition: background 0.3s;
 }
-/* subtle top glow */
+/* subtle top glow remains */
 .page-header::before {
   content: "";
   position: absolute;
@@ -63,9 +72,34 @@ body {
   left: -50%;
   width: 200%;
   height: 200%;
-  background: radial-gradient(circle at 30% 30%, rgba(88,166,255,0.08), transparent 70%);
+  background: radial-gradient(circle at 30% 30%, rgba(88,166,255,0.06), transparent 70%);
   pointer-events: none;
 }
+
+/* Dark/Light toggle button inside header */
+.theme-toggle {
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-size: 1.2rem;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 101;
+}
+.theme-toggle:hover {
+  background: var(--surface-hover);
+  transform: scale(1.1);
+}
+
 .project-name {
   font-size: 2.8rem;
   font-weight: 800;
@@ -84,6 +118,18 @@ body {
   font-size: 1.2rem;
   color: var(--text-muted);
   margin-top: 0.2rem;
+}
+
+/* Typewriter effect */
+#typewriter {
+  display: inline-block;
+  border-right: 2px solid var(--accent);
+  white-space: nowrap;
+  overflow: hidden;
+  animation: blink 0.7s steps(1) infinite;
+}
+@keyframes blink {
+  50% { border-color: transparent; }
 }
 
 /* ---------- Hero buttons with glow animation ---------- */
@@ -158,7 +204,7 @@ body {
   background: rgba(63, 185, 80, 0.1);
 }
 
-/* ---------- Feature Grid – Bigger cards, more room ---------- */
+/* ---------- Feature Grid with AOS ---------- */
 .feature-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -175,7 +221,6 @@ body {
   position: relative;
   overflow: hidden;
 }
-/* subtle hover gradient sweep */
 .feature-card::after {
   content: "";
   position: absolute;
@@ -247,12 +292,11 @@ body {
   width: fit-content;
 }
 
-/* ---------- Lists & spacing fix for install steps ---------- */
+/* ---------- Lists & spacing fix ---------- */
 ol, ul {
   padding-left: 1.6rem;
   line-height: 1.9;
 }
-/* ensure list items stay nicely indented */
 li {
   margin-bottom: 0.5rem;
 }
@@ -283,6 +327,67 @@ small {
   color: var(--text-muted);
 }
 
+/* ---------- Custom Scrollbar ---------- */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
+
+/* ---------- Mobile Floating Navigation ---------- */
+.mobile-nav {
+  display: none; /* hidden on desktop */
+  position: fixed;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 50px;
+  padding: 0.5rem 1.5rem;
+  box-shadow: var(--shadow);
+  z-index: 99;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+.mobile-nav a {
+  color: var(--text);
+  margin: 0 0.8rem;
+  font-size: 1.3rem;
+  transition: color 0.2s, transform 0.2s;
+}
+.mobile-nav a:hover {
+  color: var(--accent);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .mobile-nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  /* Adjust header padding for toggle */
+  .page-header {
+    padding: 1.2rem 0.5rem;
+  }
+  .theme-toggle {
+    top: 0.8rem;
+    right: 0.8rem;
+    width: 35px;
+    height: 35px;
+    font-size: 1rem;
+  }
+}
+
 /* ---------- Responsive ---------- */
 @media (max-width: 600px) {
   .project-name {
@@ -296,4 +401,9 @@ small {
     padding-left: 1.2rem;
     padding-right: 1.2rem;
   }
+}
+
+/* ---------- AOS default (optional adjustment) ---------- */
+[data-aos] {
+  transition: opacity 0.6s ease, transform 0.6s ease;
 }
