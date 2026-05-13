@@ -20,6 +20,7 @@
   --shadow: 0 8px 30px rgba(0,0,0,0.5);
   --header-bg: rgba(13, 17, 23, 0.85);
   --header-border: #30363d;
+  --cursor-color: #58a6ff;
 }
 
 body.light-mode {
@@ -39,69 +40,78 @@ body.light-mode {
   --shadow: 0 4px 15px rgba(0,0,0,0.08);
   --header-bg: rgba(246, 248, 250, 0.9);
   --header-border: #d0d7de;
+  --cursor-color: #0969da;
 }
 
-/* ========== ROOT LEVEL FIX FOR ZOOM & OVERFLOW ========== */
 html {
   overflow-x: hidden;
   width: 100%;
 }
 
 body {
-  /* Never allow horizontal scroll or zoom-out triggers */
   overflow-x: hidden;
   width: 100%;
   max-width: 100vw;
   margin: 0;
   padding: 0;
-  background-color: var(--bg);
+  background: var(--bg);
   color: var(--text);
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   transition: background-color 0.5s, color 0.3s;
-  background: linear-gradient(135deg, var(--bg) 0%, #0a0e14 100%);
-  background-attachment: fixed;
-  position: relative; /* ensures child positioning doesn't escape */
+  position: relative;
+  cursor: none; /* Hide default cursor for custom */
 }
 
-body::before {
+/* Dark mode transition overlay flash */
+body::after {
   content: "";
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(circle at 20% 50%, rgba(88,166,255,0.03) 0%, transparent 50%),
-              radial-gradient(circle at 80% 20%, rgba(188,140,255,0.03) 0%, transparent 50%);
+  background: var(--bg);
+  opacity: 0;
   pointer-events: none;
+  z-index: 9999;
+  transition: opacity 0.3s;
+}
+body.theme-changing::after {
+  opacity: 0.4;
+}
+
+/* tsParticles container */
+#particles-js {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   z-index: 0;
-  animation: bgShift 12s ease-in-out infinite alternate;
+  pointer-events: none;
 }
 
-@keyframes bgShift {
-  0% { opacity: 0.5; }
-  100% { opacity: 1; }
+/* ---------- Custom Cursor ---------- */
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 24px;
+  height: 24px;
+  border: 2px solid var(--cursor-color);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 10000;
+  transition: width 0.2s, height 0.2s, border-color 0.3s, box-shadow 0.3s;
+  box-shadow: 0 0 10px var(--accent-glow);
+  will-change: transform;
 }
-
-/* ========== STRICT CONTAINMENT: NO ELEMENT CAN BREAK VIEWPORT ========== */
-*, *::before, *::after {
-  box-sizing: border-box;
-}
-
-img, pre, table, code, iframe {
-  max-width: 100%;
-  height: auto;
-}
-
-.main-content,
-.page-header,
-.hero-download,
-.feature-grid,
-.download-grid,
-.download-single,
-footer {
-  max-width: 100vw;
-  overflow-wrap: break-word;
-  word-wrap: break-word;
+.cursor-hover {
+  width: 36px;
+  height: 36px;
+  border-color: var(--green);
+  box-shadow: 0 0 20px var(--green-glow);
+  transition: width 0.2s, height 0.2s, border-color 0.2s, box-shadow 0.2s;
 }
 
 /* ---------- Sticky Header ---------- */
@@ -152,23 +162,32 @@ footer {
   transform: scale(1.1);
 }
 
-/* Title with shimmer animation */
+/* ---------- Glitchy Title ---------- */
 .project-name {
   font-size: 2.8rem;
   font-weight: 800;
-  background: linear-gradient(120deg, #58a6ff, #bc8cff, #58a6ff);
+  background: linear-gradient(120deg, #58a6ff, #bc8cff);
   background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   margin: 0;
-  animation: shimmer 3s linear infinite;
+  animation: shimmer 3s linear infinite, glitch 5s infinite;
   filter: drop-shadow(0 0 8px rgba(88,166,255,0.3));
+  position: relative;
 }
 
 @keyframes shimmer {
   0% { background-position: 0% center; }
   100% { background-position: 200% center; }
+}
+
+@keyframes glitch {
+  0%, 90%, 100% { transform: translate(0); }
+  92% { transform: translate(-2px, 1px) skew(-2deg); }
+  94% { transform: translate(2px, -1px) skew(2deg); }
+  96% { transform: translate(-1px, -1px) skew(-1deg); }
+  98% { transform: translate(1px, 1px) skew(1deg); }
 }
 
 .project-tagline {
@@ -196,6 +215,8 @@ footer {
   justify-content: center;
   gap: 1rem;
   margin: 2rem 1rem;
+  position: relative;
+  z-index: 1;
 }
 
 .btn-primary, .btn-secondary, .btn-download, .btn-outline {
@@ -274,13 +295,15 @@ footer {
   margin: 2.5rem auto;
   padding: 0 1rem;
   max-width: 100%;
+  position: relative;
+  z-index: 1;
 }
 .feature-card {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 2rem 1.8rem;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s;
+  transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s;
   position: relative;
   overflow: hidden;
 }
@@ -292,7 +315,7 @@ footer {
   width: 100%;
   height: 100%;
   background: linear-gradient(90deg, transparent, rgba(88,166,255,0.05), transparent);
-  transition: left 0.45s ease;
+  transition: left 0.5s ease;
 }
 .feature-card:hover::after {
   left: 100%;
@@ -311,6 +334,8 @@ footer {
   margin: 2.5rem auto;
   padding: 0 1rem;
   max-width: 100%;
+  position: relative;
+  z-index: 1;
 }
 .download-card {
   background: var(--surface);
@@ -318,23 +343,25 @@ footer {
   border-radius: var(--radius);
   padding: 2rem 1.8rem;
   text-align: center;
-  transition: all 0.3s ease;
+  transition: all 0.4s ease;
+}
+.download-card:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 25px rgba(88,166,255,0.15), var(--shadow);
+  transform: translateY(-3px);
 }
 
-/* ========== MOBILE FLOATING NAV - PERFECT CENTERING ========== */
+/* ---------- Mobile Floating Nav ---------- */
 .mobile-nav {
   display: none;
   position: fixed;
   bottom: 1.2rem;
-  /* Center exactly */
   left: 50%;
   transform: translateX(-50%);
-  /* Prevent any zoom / scale from moving it */
-  margin: 0;
-  padding: 0.5rem 1.5rem;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 50px;
+  padding: 0.5rem 1.5rem;
   box-shadow: var(--shadow);
   z-index: 999;
   backdrop-filter: blur(10px);
@@ -342,8 +369,6 @@ footer {
   white-space: nowrap;
   width: auto;
 }
-
-/* Links inside */
 .mobile-nav a {
   color: var(--text);
   margin: 0 0.8rem;
@@ -357,7 +382,6 @@ footer {
   transform: translateY(-2px);
 }
 
-/* Show only on mobile */
 @media (max-width: 768px) {
   .mobile-nav {
     display: flex;
@@ -373,18 +397,6 @@ footer {
     width: 35px;
     height: 35px;
     font-size: 1rem;
-  }
-}
-
-/* Extra tiny screens – keep nav centered and small */
-@media (max-width: 400px) {
-  .mobile-nav {
-    padding: 0.4rem 1rem;
-    bottom: 0.8rem;
-  }
-  .mobile-nav a {
-    margin: 0 0.5rem;
-    font-size: 1.1rem;
   }
 }
 
@@ -413,23 +425,8 @@ footer {
 }
 @media (max-width: 768px) {
   #back-to-top {
-    bottom: 80px;   /* above mobile nav */
+    bottom: 80px;
     right: 15px;
-  }
-}
-
-/* ---------- Responsive Typography ---------- */
-@media (max-width: 600px) {
-  .project-name {
-    font-size: 2rem;
-  }
-  .hero-download {
-    flex-direction: column;
-    align-items: center;
-  }
-  .main-content {
-    padding-left: 1.2rem;
-    padding-right: 1.2rem;
   }
 }
 
@@ -472,4 +469,21 @@ blockquote {
 }
 small {
   color: var(--text-muted);
+}
+
+/* Make sure content sits above particles */
+.main-content, .download-single, #quick-links, #credits, footer {
+  position: relative;
+  z-index: 1;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .project-name {
+    font-size: 2rem;
+  }
+  .hero-download {
+    flex-direction: column;
+    align-items: center;
+  }
 }
