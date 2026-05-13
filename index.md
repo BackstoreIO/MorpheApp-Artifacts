@@ -117,7 +117,7 @@ layout: default
 
 ### 📌 Step‑by‑step
 1. **Install MicroG** (skip if your device is rooted)
-   - From the 🖕 [Releases page](https://github.com/BackstoreIO/MorpheApp-Artifacts/releases/latest), download the **MicroG-RE.apk** and install it.
+   - From the 🔗 [Releases page](https://github.com/BackstoreIO/MorpheApp-Artifacts/releases/latest), download the **MicroG-RE.apk** and install it.
 
 2. **Download MorpheApp APK**
    - On the same release page, grab either **MorpheApp-YouTube.apk** or **MorpheApp-Music.apk** (or both).
