@@ -5,6 +5,9 @@ layout: default
 <!-- Scroll Progress Bar -->
 <div id="progress-bar" style="position:fixed;top:0;left:0;height:3px;background:var(--accent);z-index:999;width:0%;transition: width 0.1s;"></div>
 
+<!-- tsParticles Container -->
+<div id="particles-js"></div>
+
 <div class="hero-download">
   <a href="https://github.com/BackstoreIO/MorpheApp-Artifacts/releases/latest" class="btn-primary">
     ⬇️ Download Latest Release
@@ -198,8 +201,9 @@ A huge thank you to the MorpheApp developers for making a safer, ad‑free YouTu
 <!-- Back to Top Button -->
 <button id="back-to-top" title="Back to top">⬆️</button>
 
+<!-- All Scripts Combined (Old + New Features) -->
 <script>
-  // Scroll Progress Bar
+  // ========== Scroll Progress Bar ==========
   window.addEventListener('scroll', () => {
     const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
     const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
@@ -207,13 +211,14 @@ A huge thank you to the MorpheApp developers for making a safer, ad‑free YouTu
     document.getElementById('progress-bar').style.width = scrolled + '%';
   });
 
-  // AOS init
+  // ========== AOS Init (Smoother Duration) ==========
   AOS.init({
-    duration: 800,
-    once: true
+    duration: 1000,       // Increased for smoother reveal
+    once: true,
+    easing: 'ease-out-cubic'
   });
 
-  // Typewriter effect on the project name
+  // ========== Typewriter Effect ==========
   (function() {
     const el = document.querySelector('.project-name');
     if (!el) return;
@@ -233,7 +238,7 @@ A huge thank you to the MorpheApp developers for making a safer, ad‑free YouTu
     type();
   })();
 
-  // Dark/Light Toggle
+  // ========== Dark/Light Toggle with Flash Effect ==========
   (function() {
     const header = document.querySelector('.page-header');
     if (!header) return;
@@ -244,20 +249,98 @@ A huge thank you to the MorpheApp developers for making a safer, ad‑free YouTu
     header.appendChild(toggle);
 
     toggle.addEventListener('click', () => {
+      // Flash overlay
+      document.body.classList.add('theme-changing');
       document.body.classList.toggle('light-mode');
       const isLight = document.body.classList.contains('light-mode');
       toggle.innerHTML = isLight ? '☀️' : '🌙';
       localStorage.setItem('theme', isLight ? 'light' : 'dark');
+      // Remove flash after animation
+      setTimeout(() => {
+        document.body.classList.remove('theme-changing');
+      }, 300);
     });
   })();
 
-  // Add data-aos attributes to feature cards and download cards for scroll animation
+  // ========== tsParticles Configuration ==========
+  if (typeof tsParticles !== 'undefined') {
+    tsParticles.load("particles-js", {
+      particles: {
+        number: { value: 30, density: { enable: true, value_area: 800 } },
+        color: { value: "#58a6ff" },
+        shape: { type: "circle" },
+        opacity: { value: 0.4, random: true, anim: { enable: true, speed: 1, opacity_min: 0.1, sync: false } },
+        size: { value: 2, random: true, anim: { enable: true, speed: 2, size_min: 0.5, sync: false } },
+        line_linked: { enable: true, distance: 100, color: "#58a6ff", opacity: 0.2, width: 1 },
+        move: { enable: true, speed: 1.5, direction: "none", random: true, straight: false, out_mode: "out", attract: { enable: true, rotateX: 600, rotateY: 1200 } }
+      },
+      interactivity: {
+        detect_on: "canvas",
+        events: { onhover: { enable: true, mode: "grab" }, onclick: { enable: true, mode: "push" }, resize: true },
+        modes: { grab: { distance: 140, line_linked: { opacity: 0.5 } }, push: { particles_nb: 3 } }
+      },
+      retina_detect: true
+    });
+  }
+
+  // ========== Custom Cursor ==========
+  (function() {
+    const cursor = document.createElement('div');
+    cursor.classList.add('custom-cursor');
+    document.body.appendChild(cursor);
+
+    let mouseX = 0, mouseY = 0;
+    let cursorX = 0, cursorY = 0;
+    const speed = 0.15;
+
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    });
+
+    function animate() {
+      cursorX += (mouseX - cursorX) * speed;
+      cursorY += (mouseY - cursorY) * speed;
+      cursor.style.transform = `translate(${cursorX - 12}px, ${cursorY - 12}px)`;
+      requestAnimationFrame(animate);
+    }
+    animate();
+
+    // Hover effect for interactive elements
+    const links = document.querySelectorAll('a, button, .theme-toggle, .mobile-nav a, .btn-primary, .btn-secondary, .btn-download, .btn-outline, #back-to-top');
+    links.forEach(el => {
+      el.addEventListener('mouseenter', () => cursor.classList.add('cursor-hover'));
+      el.addEventListener('mouseleave', () => cursor.classList.remove('cursor-hover'));
+    });
+  })();
+
+  // ========== Optional Click Sound Effect ==========
+  // Remove or comment out if not wanted
+  (function() {
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    document.addEventListener('click', (e) => {
+      if (e.target.closest('a, button, .btn-primary, .btn-secondary, .btn-download, .btn-outline, #back-to-top, .mobile-nav a')) {
+        const oscillator = audioCtx.createOscillator();
+        const gainNode = audioCtx.createGain();
+        oscillator.connect(gainNode);
+        gainNode.connect(audioCtx.destination);
+        oscillator.frequency.value = 800;
+        oscillator.type = 'sine';
+        gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.1);
+        oscillator.start(audioCtx.currentTime);
+        oscillator.stop(audioCtx.currentTime + 0.1);
+      }
+    });
+  })();
+
+  // ========== Add data-aos attributes ==========
   document.querySelectorAll('.feature-card, .download-card').forEach((card, idx) => {
     card.setAttribute('data-aos', 'fade-up');
     card.setAttribute('data-aos-delay', (idx % 4) * 100);
   });
 
-  // Smooth scrolling for all anchor links
+  // ========== Smooth scrolling for anchor links ==========
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
       const targetId = this.getAttribute('href');
@@ -270,7 +353,7 @@ A huge thank you to the MorpheApp developers for making a safer, ad‑free YouTu
     });
   });
 
-  // Back to Top button
+  // ========== Back to Top Button ==========
   const backToTopBtn = document.getElementById('back-to-top');
   window.addEventListener('scroll', () => {
     if (window.scrollY > 500) {
